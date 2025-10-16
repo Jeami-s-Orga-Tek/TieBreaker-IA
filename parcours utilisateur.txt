@@ -1,4 +1,0 @@
-parcours utilisateur/ comment utiliser l'outil ./tiebreaker -> markdown 
-diagrame de sequence 
-refaire le notion
-faire milestone 
