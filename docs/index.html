@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TieBreaker AI — Prédictions de matchs de tennis</title>
+  <meta name="description" content="TieBreaker AI — Prédictions intelligentes de matchs ATP. Données historiques, ELO par surface, CLI pratique.">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="#">TieBreaker AI</a>
+      <nav class="nav">
+        <a href="#features">Fonctionnalités</a>
+        <a href="#install">Installation</a>
+        <a href="#usage">Utilisation</a>
+        <a class="cta" href="https://github.com/ligsow6/TieBreakAI" target="_blank" rel="noopener">Voir le repo</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1>TieBreaker AI</h1>
+          <p class="lead">Prédictions intelligentes de matchs de tennis ATP — modèles Elo par surface, données historiques complètes et une CLI simple à utiliser.</p>
+          <p class="meta">Basé sur des jeux de données ATP (1968–2024). Conçu pour être extensible et reproductible.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#install">Installer</a>
+            <a class="btn ghost" href="#features">En savoir plus</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="card">
+            <h3>Essayer localement</h3>
+            <pre><code>python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+./executable/build
+./TieBreaker --help</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="container">
+        <h2>Fonctionnalités</h2>
+        <div class="grid">
+          <article class="feature">
+            <h3>Données historiques</h3>
+            <p>Accès à plus de 50 ans de matchs ATP, y compris challengers et qualifications.</p>
+          </article>
+          <article class="feature">
+            <h3>ELO par surface</h3>
+            <p>Classements dynamiques sensibles à la surface (terre, gazon, dur, indoor).</p>
+          </article>
+          <article class="feature">
+            <h3>CLI pratique</h3>
+            <p>Interrogations rapides de classements, confrontations, et filtres avancés.</p>
+          </article>
+          <article class="feature">
+            <h3>Extensible</h3>
+            <p>Base pour intégrer modèles ML et nouveaux jeux de données.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" class="section alt">
+      <div class="container">
+        <h2>Installation</h2>
+        <ol>
+          <li>Cloner le dépôt : <code>git clone https://github.com/ligsow6/TieBreakAI.git</code></li>
+          <li>Créer un environnement : <code>python3 -m venv .venv</code></li>
+          <li>Activer et installer : <code>source .venv/bin/activate && pip install -r requirements.txt</code></li>
+          <li>Générer le lanceur : <code>./executable/build</code></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="usage" class="section">
+      <div class="container">
+        <h2>Utilisation</h2>
+        <p>Exemples rapides :</p>
+        <ul>
+          <li><code>./TieBreaker rank --player "Novak Djokovic"</code></li>
+          <li><code>./TieBreaker match --p1 "Rafael Nadal" --p2 "Novak Djokovic" --surface Clay</code></li>
+        </ul>
+        <p>Options globales : <code>--data-root PATH</code>, <code>--help</code>.</p>
+      </div>
+    </section>
+
+    <section class="cta-strip">
+      <div class="container cta-grid">
+        <div>
+          <h3>Contribuez</h3>
+          <p>Forkez le projet, créez une branche et ouvrez une Pull Request.</p>
+        </div>
+        <a class="btn primary" href="https://github.com/ligsow6/TieBreakAI" target="_blank" rel="noopener">Voir sur GitHub</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>TieBreaker AI</strong>
+          <p>Prédictions de matchs ATP — Licence MIT</p>
+        </div>
+        <div>
+          <p>Activé GitHub Pages : dossier <code>docs/</code> sur branche <code>main</code></p>
+        </div>
+        <div>
+          <a href="https://github.com/ligsow6/TieBreakAI" target="_blank" rel="noopener">Repo</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+</body>
+</html>
