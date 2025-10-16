@@ -1,6 +1,6 @@
 # Automatic Doxygen documentation update script
 # Author: Auto-generated
-# Description: Updates Doxygen documentation for R-TYPE project
+# Description: Updates Doxygen documentation for TieBreaker AI project
 
 set -e
 
