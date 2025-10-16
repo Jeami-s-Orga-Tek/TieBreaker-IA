@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📖_20à_20propos_0',['📖 À propos',['../index.html#autotoc_md2',1,'']]]
+  ['✨_20fonctionnalités_0',['✨ Fonctionnalités',['../index.html#autotoc_md3',1,'']]]
 ];

@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "R-TYPE", "index.html", [
+  [ "TieBreaker AI", "index.html", [
     [ "🎾 TieBreaker AI", "index.html#autotoc_md0", [
       [ "📖 À propos", "index.html#autotoc_md2", null ],
       [ "✨ Fonctionnalités", "index.html#autotoc_md3", null ],
@@ -52,13 +52,32 @@ var NAVTREE =
       ] ],
       [ "📄 Licence", "index.html#autotoc_md21", null ],
       [ "🔗 Liens utiles", "index.html#autotoc_md22", null ]
+    ] ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ]
+      ] ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
+      ] ]
+    ] ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"annotated.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

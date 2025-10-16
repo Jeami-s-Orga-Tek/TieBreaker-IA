@@ -1,0 +1,11 @@
+<map id="tiebreaker_cli.norm" name="tiebreaker_cli.norm">
+<area shape="rect" id="Node000001" title=" " alt="" coords="580,43,712,69"/>
+<area shape="rect" id="Node000002" href="$namespacetiebreaker__cli.html#a27f9cace7298ef8ce8defef27dc1a0a4" title=" " alt="" coords="405,35,532,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="565,59,533,59,533,53,565,53"/>
+<area shape="rect" id="Node000003" href="$namespacetiebreaker__cli.html#a5772e6f252862a69fe791cace9fcb6e0" title=" " alt="" coords="213,35,357,77"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="389,59,358,59,358,53,389,53"/>
+<area shape="rect" id="Node000004" href="$namespacetiebreaker__cli.html#ae40d193e555fe7b52c47375634964deb" title=" " alt="" coords="21,5,149,48"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,46,149,39,149,33,198,41"/>
+<area shape="rect" id="Node000005" href="$namespacetiebreaker__cli.html#a9ff43a82360fdfc964a0e095ee31631d" title=" " alt="" coords="5,72,165,99"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="198,71,165,76,165,71,197,66"/>
+</map>

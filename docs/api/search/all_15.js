@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🔗_20liens_20utiles_0',['🔗 Liens utiles',['../index.html#autotoc_md22',1,'']]]
+  ['📄_20licence_0',['📄 Licence',['../index.html#autotoc_md21',1,'']]]
 ];
