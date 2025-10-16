@@ -27,6 +27,7 @@ body{
 .brand{font-weight:700;color:var(--text);text-decoration:none;font-size:1.05rem}
 .nav a{color:var(--muted);text-decoration:none;margin-left:1.15rem}
 .nav a.cta{padding:.55rem .9rem;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042029;font-weight:600}
+.nav a.nav-dox{padding:.45rem .7rem;border-radius:9px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--accent-2);font-weight:600}
 .hero{padding:4rem 0}
 .hero-grid{display:grid;grid-template-columns:1fr 360px;gap:2rem;align-items:center}
 .lead{font-size:1.15rem;color:var(--text);margin-top:.5rem}
@@ -35,6 +36,7 @@ body{
 .btn{display:inline-block;text-decoration:none;padding:.6rem 1rem;border-radius:10px;font-weight:600}
 .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#042029}
 .btn.ghost{border:1px solid rgba(255,255,255,0.06);color:var(--text);background:transparent}
+.btn.dox-btn{background:transparent;border:1px dashed rgba(255,255,255,0.06);color:var(--accent);font-weight:700;padding:.55rem .9rem;margin-left:.4rem}
 .section{padding:4rem 0}
 .section.alt{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.2rem;margin-top:1.2rem}
