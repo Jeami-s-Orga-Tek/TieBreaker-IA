@@ -5,8 +5,6 @@
 ## tiebreaker_cli
 ##
 
-
-#!/usr/bin/env python3
 import argparse
 import sys
 import re
@@ -94,7 +92,6 @@ class DataHub:
             if pd.api.types.is_numeric_dtype(df[player_col]) or df[player_col].astype(str).str.isdigit().all():
                 rename[player_col] = "player_id"
             else:
-                # Rare case: 'player' is a string name
                 rename[player_col] = "player_name_raw"
         if "player_id" in cols:
             rename[cols["player_id"]] = "player_id"

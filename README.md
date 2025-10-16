@@ -56,18 +56,24 @@ cd TieBreakAI
 Nous recommandons l'utilisation d'un environnement virtuel pour isoler les dépendances :
 
 ```bash
-# Création de l'environnement virtuel
-python3 -m venv .venv
+# Vérification de la version Python courante
+python -V
 
-# Activation de l'environnement (Linux/macOS)
-source .venv/bin/activate
+# Installation de Python 3.12.11 avec pyenv
+pyenv install 3.12.11
 
-# Installation des dépendances
-pip install --upgrade pip
+# Configuration locale du projet
+pyenv local 3.12.11
+
+# Vérification de l'application de la nouvelle version
+python -V
+
+# Installe toutes les dépendances Python répertoriées dans requirements.txt
 pip install -r requirements.txt
-```
 
-> 💡 **Note** : Sur Windows, utilisez `.venv\Scripts\activate` pour activer l'environnement.
+# Mise à jour de pip pour éviter les conflits
+pip install --upgrade pip
+```
 
 ### Compilation du lanceur
 
