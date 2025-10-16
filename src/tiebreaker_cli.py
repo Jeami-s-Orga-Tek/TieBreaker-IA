@@ -173,23 +173,23 @@ def cmd_match(args, hub: DataHub):
 
 def build_parser():
     ap = argparse.ArgumentParser(description="TieBreaker CLI — Parser ATP (rankings & matches)")
-    ap.add_argument("--data-root", type=Path, default=Path("data"), help="Dossier racine des données (défaut: ./data)")
+    ap.add_argument("--data-root", type=Path, default=Path("data"), help="Data root directory (default: ./data)")
     sp = ap.add_subparsers(dest="cmd", required=True)
 
-    ap_rank = sp.add_parser("rank", help="Obtenir le rang ATP d'un joueur à une date donnée (ou le plus récent)")
-    ap_rank.add_argument("--player", required=True, help="Nom du joueur (ex: 'Novak Djokovic')")
-    ap_rank.add_argument("--date", help="Date ISO (YYYY-MM-DD). Si absente, prend le dernier ranking disponible (current sinon historique).")
+    ap_rank = sp.add_parser("rank", help="Get a player's ATP ranking on a given date (or the most recent one)")
+    ap_rank.add_argument("--player", required=True, help="Player name (ex: 'Novak Djokovic')")
+    ap_rank.add_argument("--date", help="Date ISO (YYYY-MM-DD). If absent, take the last available ranking (current if available, otherwise historical).")
     ap_rank.set_defaults(func=cmd_rank)
 
-    ap_match = sp.add_parser("match", help="Trouver le résultat d'un match précis entre deux joueurs")
-    ap_match.add_argument("--p1", required=True, help="Joueur 1 (ordre indifférent)")
-    ap_match.add_argument("--p2", required=True, help="Joueur 2 (ordre indifférent)")
-    ap_match.add_argument("--year", help="Année exacte (ex: 2023). Accélère la recherche.")
-    ap_match.add_argument("--tournament", help="Filtre sur le nom du tournoi (contient)")
-    ap_match.add_argument("--round", help="Filtre round exact (ex: F, SF, QF, R16, R32, R64, R128)")
-    ap_match.add_argument("--surface", help="Filtre surface exacte (Hard, Clay, Grass, Carpet)")
-    ap_match.add_argument("--date", help="Filtre date exacte du match/tournoi (YYYY-MM-DD)")
-    ap_match.add_argument("--all-years", action="store_true", help="Parcourir toutes les années (lent) si --year absent")
+    ap_match = sp.add_parser("match", help="Find the result of a specific match between two players")
+    ap_match.add_argument("--p1", required=True, help="Player 1 (indifferent order)")
+    ap_match.add_argument("--p2", required=True, help="Player 2 (indifferent order)")
+    ap_match.add_argument("--year", help="Exact year (ex: 2023). Speed up your search.")
+    ap_match.add_argument("--tournament", help="Filter by tournament name (contains)")
+    ap_match.add_argument("--round", help="Exact round filter (ex: F, SF, QF, R16, R32, R64, R128)")
+    ap_match.add_argument("--surface", help="Exact surface filter (Hard, Clay, Grass, Carpet)")
+    ap_match.add_argument("--date", help="Exact date filter for match/tournament (YYYY-MM-DD)")
+    ap_match.add_argument("--all-years", action="store_true", help="Browse all years (slow) if --year is absent")
     ap_match.set_defaults(func=cmd_match)
     return ap
 
