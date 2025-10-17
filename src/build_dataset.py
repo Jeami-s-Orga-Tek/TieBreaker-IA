@@ -12,7 +12,8 @@ from typing import Any, Mapping
 import numpy as np
 import pandas as pd
 
-from .tiebreaker_cli import DataHub
+from .models import DataHub
+from .features_recent import add_recent_form_features
 
 
 @dataclass(slots=True)
@@ -401,7 +402,7 @@ def add_one_hot_features(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def describe_dataframe(df: pd.DataFrame) -> str:
+def describe_dataframe(df: pd.DataFrame, extra_lines: list[str] | None = None) -> str:
     lines = [
         f"Dataset shape: {df.shape[0]} rows × {df.shape[1]} columns",
         "NaN ratio per column:",
@@ -427,6 +428,8 @@ def describe_dataframe(df: pd.DataFrame) -> str:
     if "best_of_inferred" in df.columns:
         inferred_count = int(df["best_of_inferred"].sum())
         lines.append(f"best_of_inferred == 1 rows: {inferred_count}")
+    if extra_lines:
+        lines.extend(extra_lines)
     return "\n".join(lines)
 
 
@@ -443,28 +446,80 @@ def run(
     out_path: Path,
     min_year: int | None = None,
     max_year: int | None = None,
+    add_recent_form: bool = False,
+    lookback_matches: int = 20,
+    min_recent_matches: int = 10,
 ) -> pd.DataFrame:
     if years and include_all_years:
         raise ValueError("Choisir --years ou --all-years, pas les deux.")
+    if add_recent_form and min_recent_matches > lookback_matches:
+        raise ValueError("--min-recent-matches doit être inférieur ou égal à --lookback-matches")
     hub = DataHub(data_root)
     _, players_lookup = prepare_players(hub.load_players())
     rankings_df = prepare_rankings(hub.load_rankings())
-    if include_all_years:
-        matches_df = hub.load_matches()
+
+    if include_all_years or years is None or add_recent_form:
+        matches_history = hub.load_matches()
     else:
-        matches_df = hub.load_matches(years=years)
+        matches_history = hub.load_matches(years=years)
+
+    matches_history = matches_history.copy()
+    matches_history["tourney_date"] = pd.to_datetime(matches_history["tourney_date"], errors="coerce")
+
+    if years:
+        target_years = set(years)
+        matches_df = matches_history[matches_history["tourney_date"].dt.year.isin(target_years)].copy()
+    else:
+        matches_df = matches_history.copy()
+
     if min_year is not None or max_year is not None:
-        dates = pd.to_datetime(matches_df["tourney_date"], errors="coerce")
         mask = pd.Series(True, index=matches_df.index)
+        years_series = matches_df["tourney_date"].dt.year
         if min_year is not None:
-            mask &= dates.dt.year >= min_year
+            mask &= years_series >= min_year
         if max_year is not None:
-            mask &= dates.dt.year <= max_year
+            mask &= years_series <= max_year
         matches_df = matches_df[mask]
+
     matches_df = matches_df.sort_values("tourney_date", na_position="last").reset_index(drop=True)
     dataset = build_dataset(matches_df, rankings_df, players_lookup, limit=limit)
+
+    extra_lines: list[str] = []
+    if add_recent_form:
+        if matches_df.empty:
+            matches_for_form = matches_df
+        else:
+            max_date = matches_df["tourney_date"].max()
+            matches_for_form = matches_history[matches_history["tourney_date"] <= max_date].copy()
+        dataset = add_recent_form_features(
+            matches_raw=matches_for_form,
+            dataset_ab=dataset,
+            lookback_matches=lookback_matches,
+            min_matches=min_recent_matches,
+        )
+        recent_diff_cols = [
+            f"win_rate_{lookback_matches}_diff",
+            f"first_in_pct_{lookback_matches}_diff",
+            f"first_won_pct_{lookback_matches}_diff",
+            f"second_won_pct_{lookback_matches}_diff",
+            f"aces_per_SvGm_{lookback_matches}_diff",
+            f"df_per_SvGm_{lookback_matches}_diff",
+            f"win_rate_surface_{lookback_matches}_diff",
+        ]
+        available_diffs = [col for col in recent_diff_cols if col in dataset.columns]
+        if available_diffs:
+            extra_lines.append("Recent form coverage:")
+            total_rows = len(dataset)
+            for col in available_diffs:
+                coverage = float(dataset[col].notna().mean()) if total_rows else 0.0
+                extra_lines.append(f"  - {col}: {coverage:.1%} non-NaN")
+        if "recent_form_missing_A" in dataset.columns:
+            extra_lines.append(f"recent_form_missing_A == 1 rows: {int(dataset['recent_form_missing_A'].sum())}")
+        if "recent_form_missing_B" in dataset.columns:
+            extra_lines.append(f"recent_form_missing_B == 1 rows: {int(dataset['recent_form_missing_B'].sum())}")
+
     save_dataset(dataset, out_path)
-    print(describe_dataframe(dataset))
+    print(describe_dataframe(dataset, extra_lines=extra_lines if extra_lines else None))
     return dataset
 
 
@@ -477,6 +532,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-year", type=int, help="Filtrer les matches jusqu'à cette année incluse")
     parser.add_argument("--limit", type=int, help="Limiter le nombre de matches traités (dev rapide)")
     parser.add_argument("--out", type=Path, default=Path("data/processed/dataset_outcome.parquet"), help="Fichier de sortie Parquet")
+    parser.add_argument("--add-recent-form", action="store_true", help="Ajouter les features de forme récente (lookback par joueur)")
+    parser.add_argument("--lookback-matches", type=int, default=20, help="Nombre de matches utilisés pour la forme récente (défaut: 20)")
+    parser.add_argument("--min-recent-matches", type=int, default=10, help="Nombre minimum de matches requis pour calculer la forme (défaut: 10)")
     return parser
 
 
@@ -492,6 +550,9 @@ def main(argv: list[str] | None = None) -> int:
             out_path=args.out,
             min_year=args.min_year,
             max_year=args.max_year,
+            add_recent_form=args.add_recent_form,
+            lookback_matches=args.lookback_matches,
+            min_recent_matches=args.min_recent_matches,
         )
     except Exception as exc:
         parser.error(str(exc))

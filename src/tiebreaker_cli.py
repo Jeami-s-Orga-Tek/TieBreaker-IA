@@ -5,7 +5,7 @@
 ## tiebreaker_cli
 ##
 
-from models import DataHub
+from .models import DataHub
 import argparse
 import sys
 import re

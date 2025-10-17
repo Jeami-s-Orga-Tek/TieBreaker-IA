@@ -9,7 +9,8 @@ import re
 from pathlib import Path
 from datetime import datetime
 import pandas as pd
-from parser import parse_rank_date_col
+
+from .parser import parse_rank_date_col
 
 # class DecisionTreeModel:
 
@@ -95,7 +96,7 @@ class DataHub:
                 if f.exists():
                     files.append(f)
         else:
-            files = [p for p in matches_dir.glob("atp_matches_*.csv") if re.search(r"\d{4}\.csv$", p.name)]
+            files = [p for p in matches_dir.glob("atp_matches_*.csv") if re.fullmatch(r"atp_matches_\d{4}\.csv", p.name)]
         if not files:
             raise FileNotFoundError("Aucun fichier de matches singles trouvé (atp_matches_YYYY.csv).")
 
